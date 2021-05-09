@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_aid/screens/authenticate/sign_in.dart';
 import 'package:food_aid/screens/authenticate/sign_up.dart';
 
 class Authenticate extends StatefulWidget {
@@ -9,14 +10,6 @@ class Authenticate extends StatefulWidget {
 class _AuthenticateState extends State<Authenticate> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Food Aid App'),
-        centerTitle: true,
-        backgroundColor: Colors.cyanAccent,
-      ),
-      backgroundColor: Colors.grey,
-      body: SignUp(),
-    );
+    return SignUp();
   }
 }
