@@ -23,6 +23,7 @@ class AuthService {
       User user = result.user;
       return _customUserFromUser(user);
     } catch (e) {
+      print(e.toString());
       return null;
     }
   }

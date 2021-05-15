@@ -98,7 +98,7 @@ class _SignUpState extends State<SignUp> {
                     dynamic user = await _auth.signUp(email, password);
                     if (user == null) {
                       setState(() {
-                        error = 'Please provide valid credentials';
+                        error = 'Please check your email and try again';
                       });
                     }
                   }
@@ -131,14 +131,14 @@ class _SignUpState extends State<SignUp> {
                       }));
                     },
                   ),
-                  SizedBox(height: 5.0),
-                  Text(
-                    error,
-                    style: TextStyle(color: Colors.redAccent),
-                  ),
                 ],
               ),
-            )
+            ),
+            SizedBox(height: 5.0),
+            Text(
+              error,
+              style: TextStyle(color: Colors.redAccent),
+            ),
           ],
         ),
       ),
