@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_aid/screens/authenticate/sign_in.dart';
+import 'package:food_aid/services/auth.dart';
+import 'package:food_aid/models/user.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -8,9 +10,11 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   final _formKey = GlobalKey<FormState>();
+  final AuthService _auth = AuthService();
 
   String email = '';
   String password = '';
+  String error = '';
 
   @override
   Widget build(BuildContext context) {
@@ -89,10 +93,14 @@ class _SignUpState extends State<SignUp> {
               padding: EdgeInsets.fromLTRB(8.0, 8.0, 0.0, 0.0),
               child: ElevatedButton(
                 child: Text('Register'),
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState.validate()) {
-                    print(email);
-                    print(password);
+                    dynamic user = await _auth.signUp(email, password);
+                    if (user == null) {
+                      setState(() {
+                        error = 'Please provide valid credentials';
+                      });
+                    }
                   }
                 },
               ),
@@ -122,6 +130,11 @@ class _SignUpState extends State<SignUp> {
                         return SignIn();
                       }));
                     },
+                  ),
+                  SizedBox(height: 5.0),
+                  Text(
+                    error,
+                    style: TextStyle(color: Colors.redAccent),
                   ),
                 ],
               ),
