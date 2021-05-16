@@ -10,6 +10,13 @@ admin.initializeApp();
 //   response.send("Hello from Firebase!");
 // });
 
-// exports.onReceiverAccepts = functions.firestore.document('/notifications/id').onUpdate((snap,context) => {
-
-// })
+exports.onReceiverAccepts = functions.https.onCall(
+    (data,context) => {
+        var id = data.id;
+        functions.firestore.document('/notifications/id').onUpdate((snap,context) => {
+            if(snap.data().receiver == true) {
+                //notify user about the receiver
+            }
+        })
+    }
+)
