@@ -4,6 +4,7 @@ import 'package:food_aid/services/auth.dart';
 import 'package:food_aid/screens/wrapper.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:food_aid/shared/loading.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,10 +53,11 @@ class _MyAppState extends State<MyApp> {
 
     // Show a loader until FlutterFire is initialized
     if (!_initialized) {
-      print('Loading');
+      Loading();
     }
 
     return StreamProvider<CustomUser>.value(
+      initialData: null,
       value: AuthService().user,
       child: MaterialApp(
         title: 'Food Aid',
