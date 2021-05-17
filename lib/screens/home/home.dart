@@ -5,6 +5,7 @@ import 'package:food_aid/services/database.dart';
 import 'package:provider/provider.dart';
 import 'package:food_aid/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:food_aid/models/notification.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -40,9 +41,8 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     final user = Provider.of<CustomUser>(context);
     final DatabaseService _db = DatabaseService(uid: user.uid);
-    final notifications = Provider.of<QuerySnapshot>(context);
 
-    return StreamProvider.value(
+    return StreamProvider<List<CustomNotification>>.value(
       value: _db.notifiy,
       child: Scaffold(
         appBar: AppBar(
