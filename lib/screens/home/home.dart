@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:food_aid/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:food_aid/models/notification.dart';
+import 'package:location/location.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -14,6 +15,9 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final AuthService _auth = AuthService();
+
+  LocationData _currentPosition;
+  Location location = Location();
 
   String email = '';
 
@@ -35,6 +39,7 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     initializeDonations();
+    getLoc();
   }
 
   @override
@@ -142,6 +147,8 @@ class _HomeState extends State<Home> {
                               child: Text("Submit"),
                               color: Colors.blue,
                               onPressed: () async {
+                                print(_currentPosition.latitude);
+                                print(_currentPosition.longitude);
                                 dynamic res = await _db.donateFood(
                                     email,
                                     phoneNumber,
@@ -175,5 +182,30 @@ class _HomeState extends State<Home> {
         body: Notifications(),
       ),
     );
+  }
+
+  getLoc() async {
+    bool _serviceEnabled;
+    PermissionStatus _permissionGranted;
+
+    _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) {
+        print("Service not enabled");
+        return;
+      }
+    }
+
+    _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) {
+        print("permission not granted");
+        return;
+      }
+    }
+
+    _currentPosition = await location.getLocation();
   }
 }
