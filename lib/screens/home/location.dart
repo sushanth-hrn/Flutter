@@ -53,12 +53,14 @@ class _MyLocationState extends State<MyLocation> {
                     height: MediaQuery.of(context).size.height / 2.5,
                     width: MediaQuery.of(context).size.width,
                     child: GoogleMap(
-                      initialCameraPosition: CameraPosition(
-                          target: _initialcameraposition, zoom: 15),
-                      mapType: MapType.normal,
-                      onMapCreated: _onMapCreated,
-                      myLocationEnabled: true,
-                    ),
+                        initialCameraPosition: CameraPosition(
+                            target: _initialcameraposition, zoom: 15),
+                        mapType: MapType.normal,
+                        onMapCreated: _onMapCreated,
+                        myLocationEnabled: true,
+                        zoomGesturesEnabled: true,
+                        myLocationButtonEnabled: true,
+                        zoomControlsEnabled: false),
                   ),
                   SizedBox(
                     height: 3,
