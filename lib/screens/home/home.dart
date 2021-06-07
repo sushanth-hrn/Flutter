@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_aid/screens/home/location.dart';
 import 'package:food_aid/screens/home/notifications.dart';
 import 'package:food_aid/services/auth.dart';
 import 'package:food_aid/services/database.dart';
@@ -167,15 +168,18 @@ class _HomeState extends State<Home> {
                 child: Text("My Donations"),
                 color: Colors.blue,
                 onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          scrollable: true,
-                          title: Text("My Donations"),
-                          content: Text("Donations data goes here"),
-                        );
-                      });
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return MyLocation();
+                  }));
+                  // showDialog(
+                  //     context: context,
+                  //     builder: (BuildContext context) {
+                  //       return AlertDialog(
+                  //         scrollable: true,
+                  //         title: Text("My Donations"),
+                  //         content: Text("Donations data goes here"),
+                  //       );
+                  //     });
                 })
           ],
         ),
